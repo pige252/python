@@ -6,7 +6,7 @@ def read_adc(channel):
     buff[1]=(channel&0x07)<<6
 
     wp.digitalWrite(6,0)        #CS(6), False
-    wp.wiringPiSPIDataRW(0,buff,3)
+    wp.wiringPiSPIDataRW(0,buff)
 
     buff[1]=0x0F&buff[1]
     adcValue=(buff[1]<<8)|buff[2]
