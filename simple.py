@@ -1,7 +1,7 @@
 import wiringpi as wp
 
 def read_adc(channel):
-    buff=b'\xC0\x00\x00'
+    buff=b'\x06\x00\x00'
     adcValue=0
 
     wp.digitalWrite(6,0)        #CS(6), False
