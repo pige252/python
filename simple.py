@@ -5,7 +5,7 @@ def read_adc(channel):
     adcValue=0
 
     wp.digitalWrite(6,0)        #CS(6), False
-    adcValue=wp.wiringPiSPIDataRW(0,buff)
+    adcValue=wp.wiringPiSPIDataRW(channel,buff)
     wp.digitalWrite(6,1)        #CS(6), True
 
     return adcValue
