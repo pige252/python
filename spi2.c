@@ -19,10 +19,12 @@ int read_mcp3208_adc(unsigned char adcChannel)
   buff[0] = 0x06 | ((adcChannel & 0x07) >> 7);
   buff[1] = ((adcChannel & 0x07) << 6);
   buff[2] = 0x00;
+  printf("%x %x %x\n", buff[0], buff[1], buff[2]);
 
   digitalWrite(CS_MCP3208, 0);  // Low : CS Active
 
   wiringPiSPIDataRW(SPI_CHANNEL, buff, 3);
+  printf("%x %x %x\n", buff[0], buff[1], buff[2]);
 
   buff[1] = 0x0F & buff[1];
   adcValue = ( buff[1] << 8) | buff[2];
@@ -55,7 +57,7 @@ int main (void)
 
   pinMode(CS_MCP3208, OUTPUT);
 
-  while(1)
+  //while(1)
   {
     adcValue = read_mcp3208_adc(adcChannel0);
     Vt = (float)adcValue*3.3/4095.0;
