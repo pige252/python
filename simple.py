@@ -40,6 +40,8 @@ def main():
     wp.pinMode(CS_MCP3208, wp.OUTPUT)
 
     while 1:
+        t = time.time()
+
         vt = read_adc(0)
         R = (10000*vt)/(5-vt)
         vt = 5*R/(R+10000)
@@ -48,9 +50,13 @@ def main():
         vh = read_adc(1)
         humidity = (vh-0.78)/(0.0318-0.00007*temp)
 
-        print('{} Temp={}C, Humid={}%'.format(strftime("%Y-%m-%d %H:%M:%S", localtime()), temp, humidity))
+        print('{} Temp={}C, Humid={}%'.format(t, temp, humidity))
+        data = 'rasptest temp={},hum={} {:d}'.format(temp, humidity, int(t * (10**9)))
+        print("Send data to DB")
+        r = requests.post('http://192.168.1.231:8086/write', params={'db': 'mydb'}, data=data)
+        print("Return status: {}", r.status_code)
 
-        time.sleep(5)
+        time.sleep(30)
 
 if __name__ == '__main__':
     main() 
