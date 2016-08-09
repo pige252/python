@@ -1,5 +1,7 @@
 import sys
 import wiringpi as wp
+import time
+from time import localtime,strftime
 
 CS_MCP3208 = 6 # BCM_GPIO 25
 SPI_CHANNEL = 0
@@ -45,8 +47,9 @@ def main():
         vh = read_adc(1)
         humidity=(vh-0.78)/(0.0318-0.00007*temp)
 
-        print "Temp=",'%4.2f'%temp,"c, humid=",'%4.2f'%humidity,"%"
+        print strftime("%Y-%m-%d %H:%M:%S", localtime()) ,"Temp=",'%4.2f'%temp,"c, humid=",'%4.2f'%humidity,"%"
 
+        time.sleep(1)
 
 if __name__ == '__main__':
     main() 
