@@ -40,12 +40,12 @@ def main():
 
     while 1:
         vt = read_adc(0)
-        R=(10000*vt)/(5-vt)
-        vt=5*R/(R+10000)
-        temp=-0.3167*vt*vt*vt*vt*vt*vt+4.5437*vt*vt*vt*vt*vt-24.916*vt*vt*vt*vt+63.398*vt*vt*vt-67.737*vt*vt-13.24*vt+98.432
+        R = (10000*vt)/(5-vt)
+        vt = 5*R/(R+10000)
+        temp = -0.3167*(vt**6) + 4.5437*(vt**5) - 24.916*(vt**4) + 63.398*(vt**3) - 67.737*vt*vt - 13.24*vt + 98.432
 
         vh = read_adc(1)
-        humidity=(vh-0.78)/(0.0318-0.00007*temp)
+        humidity = (vh-0.78)/(0.0318-0.00007*temp)
 
         print strftime("%Y-%m-%d %H:%M:%S", localtime()) ,"Temp=",'%4.2f'%temp,"c, humid=",'%4.2f'%humidity,"%"
 
