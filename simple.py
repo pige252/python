@@ -53,7 +53,7 @@ def main():
         print('{} Temp={}C, Humid={}%'.format(t, temp, humidity))
         data = 'rasptest temp={},hum={} {:d}'.format(temp, humidity, int(t * (10**9)))
         print("Send data to DB")
-        r = requests.post('http://192.168.1.231:8086/write', params={'db': 'mydb'}, data=data)
+        r = requests.post('http://192.168.1.231:8086/write', auth=('mydb', 'O7Bf3CkiaK6Ou8eqYttU'), params={'db': 'mydb'}, data=data)
         print("Return status: {}", r.status_code)
 
         time.sleep(30)
