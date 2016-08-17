@@ -23,7 +23,7 @@ def read_adc(channel):
 
     adcValue=ord(adcValue[1])*256+ord(adcValue[2])
 
-    voltage=adcValue*3.3/4095
+    voltage=adcValue*5.0/4095.0
 
     return voltage
 
@@ -48,7 +48,7 @@ def main():
         temp = -0.3167*(vt**6) + 4.5437*(vt**5) - 24.916*(vt**4) + 63.398*(vt**3) - 67.737*vt*vt - 13.24*vt + 98.432
 
         vh = read_adc(1)
-        humidity = (vh-0.78)/(0.0318-0.00007*temp)
+        humidity = (((vh/5.0)-0.16)/0.0062)/(1.0546-0.00216*temp)
 
         print('{} Temp={}C, Humid={}%'.format(t, temp, humidity))
         data = 'rasptest temp={},hum={} {:d}'.format(temp, humidity, int(t * (10**9)))

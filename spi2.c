@@ -63,12 +63,13 @@ int main (void)
     timer = time(NULL);
     t = localtime(&timer);
     adcValue = read_mcp3208_adc(adcChannel0);
-    Vt = (float)adcValue*3.3/4095.0;
+    Vt = (float)adcValue*5.0/4095.0;
     R = (Resistance*Vt)/(5-Vt);
     Vt = 5*R/(R+10000);
     temp = -0.3167*Vt*Vt*Vt*Vt*Vt*Vt+4.5437*Vt*Vt*Vt*Vt*Vt-24.916*Vt*Vt*Vt*Vt+63.398*Vt*Vt*Vt-67.737*Vt*Vt-13.24*Vt+98.432;
     adcValue1 = read_mcp3208_adc(adcChannel1);
-    Vh = (float)adcValue1*3.3/4095.0;
+    Vh = (float)adcValue1*5.0/4095.0;
+//    humidity = (((Vh/5.0)-0.16)/0.0062)/(1.0546-0.00216*temp);
     humidity = (Vh-0.78)/(0.0318-0.00007*temp);
     printf("%d-%d-%d %d:%d:%d", t->tm_year+1900,t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
     printf(" temp = %4.2fC, humidity = %4.2f%%,\n", temp, humidity);
